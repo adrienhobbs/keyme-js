@@ -29,8 +29,13 @@ describe("Pagination.vue", () => {
     expect(wrapper.vm.currentPage).to.equal(0);
   });
 
-  it("emits an pageUpdated event", () => {
+  it("emits a pageUpdated event when the next page button is clicked", () => {
     nextPageBtn.trigger("click");
+    expect(wrapper.emitted()).to.haveOwnProperty("pageUpdated");
+  });
+
+  it("emits a pageUpdated event when the previous page button is clicked", () => {
+    prevPageBtn.trigger("click");
     expect(wrapper.emitted()).to.haveOwnProperty("pageUpdated");
   });
 
