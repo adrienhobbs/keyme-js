@@ -13,7 +13,11 @@
       :totalItems="products.length"
       :itemsPerPage="productsPerPage"
     />
-    <div class="button" @click="$emit('updateView', 'address-form')">
+    <div
+      v-if="false"
+      class="button"
+      @click="$emit('updateView', 'address-form')"
+    >
       Checkout
     </div>
   </div>
