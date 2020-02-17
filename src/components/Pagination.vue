@@ -1,7 +1,7 @@
 <template>
   <div class="pagination-container">
     <div
-      class="button previous-page"
+      class="button previous-page-btn"
       :class="{ disabled: isFirstPage }"
       @click="updatePage(currentPage - 1)"
     >
@@ -9,7 +9,7 @@
     </div>
     <div class="current-page">{{ currentPage + 1 }} / {{ totalPages }}</div>
     <div
-      class="button next-page"
+      class="button next-page-btn"
       :class="{ disabled: isLastPage }"
       @click="updatePage(currentPage + 1)"
     >
@@ -37,10 +37,13 @@ export default {
     };
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(null, 0);
+    },
     updatePage(page) {
       this.currentPage = page;
       this.$emit("pageUpdated", this.currentPage);
-      window.scrollTo(null, 0);
+      this.scrollToTop();
     }
   },
   computed: {
