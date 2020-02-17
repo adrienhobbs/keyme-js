@@ -8,14 +8,14 @@
       />
     </div>
 
-    <!-- <div class="button" @click="$emit('updateView', 'address-form')">
-      Checkout
-    </div> -->
     <Pagination
       @pageUpdated="page => (currentPage = page)"
       :totalItems="products.length"
       :itemsPerPage="productsPerPage"
     />
+    <!-- <div class="button" @click="$emit('updateView', 'address-form')">
+      Checkout
+    </div> -->
   </div>
 </template>
 
@@ -58,12 +58,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-left: 15px;
-  padding-right: 15px;
 
   @media (min-width: 768px) {
-    padding-left: 30px;
-    padding-right: 30px;
     justify-content: space-between;
   }
 }
