@@ -1,7 +1,5 @@
 <template>
   <div class="product-listing">
-    Product Listing
-
     <div class="button" @click="$emit('updateView', 'address-form')">
       Checkout
     </div>
@@ -10,7 +8,13 @@
 
 <script>
 export default {
-  name: "ProductListing"
+  name: "ProductListing",
+  props: {
+    products: {
+      type: Array,
+      required: true
+    }
+  }
 };
 </script>
 
