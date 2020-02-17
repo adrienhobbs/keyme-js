@@ -41,20 +41,38 @@ export default {
 </script>
 
 <style lang="scss">
+$orange: #ff6138;
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  max-width: 800px;
+  max-width: 768px;
   margin: auto;
   margin-top: 60px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: 1px solid gray;
+  padding-top: 30px;
 
   .button {
-    padding: 10px;
+    padding: 5px 15px 5px 15px;
     cursor: pointer;
     border: 1px solid black;
+    background-color: $orange;
+    color: white;
+    border-radius: 20px;
+    display: inline-flex;
+
+    &:hover {
+      background-color: lighten($orange, 10%);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
   }
 }
 </style>

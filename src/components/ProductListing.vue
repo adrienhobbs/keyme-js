@@ -1,21 +1,70 @@
 <template>
   <div class="product-listing">
-    <div class="button" @click="$emit('updateView', 'address-form')">
+    <div class="products-container">
+      <Product
+        v-for="product in productsToDisplay"
+        :key="product.key"
+        :product="product"
+      />
+    </div>
+
+    <Pagination
+      @pageUpdated="page => (currentPage = page)"
+      :totalItems="products.length"
+      :itemsPerPage="productsPerPage"
+    />
+    <div
+      v-if="false"
+      class="button"
+      @click="$emit('updateView', 'address-form')"
+    >
       Checkout
     </div>
   </div>
 </template>
 
 <script>
+import Product from "@/components/Product";
+import Pagination from "@/components/Pagination";
+
 export default {
   name: "ProductListing",
+  components: {
+    Product,
+    Pagination
+  },
   props: {
     products: {
       type: Array,
       required: true
     }
+  },
+  data() {
+    return {
+      currentPage: 0,
+      productsPerPage: 9
+    };
+  },
+  computed: {
+    productsToDisplay() {
+      const startingIndex = this.currentPage * this.productsPerPage;
+      return this.products.slice(
+        startingIndex,
+        startingIndex + this.productsPerPage
+      );
+    }
   }
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+  }
+}
+</style>
