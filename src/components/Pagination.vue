@@ -67,8 +67,16 @@ export default {
 .pagination-container {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 30px;
+
+  .button {
+    background-color: gray;
+
+    &:hover {
+      background-color: lighten(gray, 10%);
+    }
+  }
 
   .current-page {
     padding-left: 5px;
