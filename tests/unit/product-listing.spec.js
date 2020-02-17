@@ -9,7 +9,8 @@ describe("ProductListing.vue", () => {
   before(() => {
     wrapper = shallowMount(ProductListing, {
       propsData: {
-        products
+        products,
+        cart: {}
       }
     });
   });
@@ -26,11 +27,5 @@ describe("ProductListing.vue", () => {
     const secondPageProducts = [...wrapper.vm.productsToDisplay];
 
     expect(firstPageProducts).to.not.equal(secondPageProducts);
-  });
-
-  it("emits an updateView event", () => {
-    const button = wrapper.find(".button");
-    button.trigger("click");
-    expect(wrapper.emitted()).to.haveOwnProperty("updateView");
   });
 });

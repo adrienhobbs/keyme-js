@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <ProductListing
-      @updateView="updateView"
-      :products="products"
-      v-show="currentView === 'product-listing'"
-    />
-    <AddressForm
-      @updateView="updateView"
-      v-show="currentView === 'address-form'"
-    />
+    <transition name="fade">
+      <div v-show="currentView === 'product-listing'">
+        <div
+          class="button checkout-btn"
+          :class="{ 'is-hidden': !showCheckoutBtn }"
+          @click="updateView('address-form')"
+        >
+          Checkout
+        </div>
+        <ProductListing
+          @updateCart="updateCart"
+          @updateView="updateView"
+          :cart="cart"
+          :products="products"
+        />
+      </div>
+    </transition>
+    <transition>
+      <AddressForm
+        @updateView="updateView"
+        v-show="currentView === 'address-form'"
+      />
+    </transition>
   </div>
 </template>
 
@@ -27,14 +41,23 @@ export default {
     return {
       products,
       currentView: "product-listing",
-      cart: {
-        products: []
-      }
+      cart: {}
     };
+  },
+  computed: {
+    showCheckoutBtn() {
+      return this.itemsInCart && this.currentView === "product-listing";
+    },
+    itemsInCart() {
+      return Object.values(this.cart).some(qty => qty > 0);
+    }
   },
   methods: {
     updateView(view) {
       this.currentView = view;
+    },
+    updateCart({ id, qty }) {
+      this.$set(this.cart, id, qty);
     }
   }
 };
@@ -54,25 +77,44 @@ $orange: #ff6138;
   padding-left: 30px;
   padding-right: 30px;
   border: 1px solid gray;
-  padding-top: 30px;
+  padding-top: 10px;
+  position: relative;
+}
 
-  .button {
-    padding: 5px 15px 5px 15px;
-    cursor: pointer;
-    border: 1px solid black;
-    background-color: $orange;
-    color: white;
-    border-radius: 20px;
-    display: inline-flex;
+.is-hidden {
+  visibility: hidden;
+}
 
-    &:hover {
-      background-color: lighten($orange, 10%);
-    }
+.checkout-btn {
+  position: sticky;
+  top: 5px;
+  right: 0;
+  margin-bottom: 10px;
+}
 
-    &.disabled {
-      pointer-events: none;
-      opacity: 0.3;
-    }
+.button {
+  padding: 5px 15px 5px 15px;
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: $orange;
+  color: white;
+  border-radius: 20px;
+  display: inline-flex;
+
+  &:hover {
+    background-color: lighten($orange, 10%);
   }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -3,6 +3,8 @@
     <div class="products-container">
       <Product
         v-for="product in productsToDisplay"
+        :qtyInCart="cart[product.id] || 0"
+        @updateCart="({ id, qty }) => $emit('updateCart', { id, qty })"
         :key="product.key"
         :product="product"
       />
@@ -13,13 +15,6 @@
       :totalItems="products.length"
       :itemsPerPage="productsPerPage"
     />
-    <div
-      v-if="false"
-      class="button"
-      @click="$emit('updateView', 'address-form')"
-    >
-      Checkout
-    </div>
   </div>
 </template>
 
@@ -36,6 +31,10 @@ export default {
   props: {
     products: {
       type: Array,
+      required: true
+    },
+    cart: {
+      type: Object,
       required: true
     }
   },
