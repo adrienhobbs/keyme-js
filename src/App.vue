@@ -20,6 +20,7 @@
     <transition>
       <AddressForm
         @updateView="updateView"
+        @startOver="startOver"
         v-show="currentView === 'address-form'"
       />
     </transition>
@@ -40,7 +41,7 @@ export default {
   data() {
     return {
       products,
-      currentView: "product-listing",
+      currentView: "address-form",
       cart: {}
     };
   },
@@ -56,6 +57,10 @@ export default {
     }
   },
   methods: {
+    startOver() {
+      this.cart = {};
+      this.updateView("product-listing");
+    },
     updateView(view) {
       this.currentView = view;
     },
