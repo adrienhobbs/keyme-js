@@ -13,29 +13,49 @@
           invalid: !field.valid
         }"
         :type="field.type"
-        :required="field.required"
         :placeholder="field.placeholder"
         @input="validateField(field)"
       />
     </div>
     <div class="form-actions">
-      <div class="continue-btn button" :class="{ disabled: !formIsValid }">
+      <div
+        class="continue-btn button"
+        @click="showModal = true"
+        :class="{ disabled: !formIsValid }"
+      >
         Continue
       </div>
       <div @click="$emit('updateView', 'product-listing')" class="button">
         Edit Cart
       </div>
     </div>
+    <Modal :visible="showModal">
+      <div>
+        <div v-for="(field, i) in fields" :key="i">
+          <div v-if="field.value" class="confirmed-field">
+            <h3>{{ field.placeholder }}: {{ field.value }}</h3>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div @click="startOver()" class="button">
+            Start Over
+          </div>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
 import { createValidateMinLengthFn, validateEmail } from "../form-helpers";
+import Modal from "@/components/Modal";
 
 export default {
   name: "AddressForm",
+  components: { Modal },
   data() {
     return {
+      showModal: false,
       fields: [
         {
           className: "full-name",
@@ -85,6 +105,18 @@ export default {
     }
   },
   methods: {
+    startOver() {
+      this.showModal = false;
+
+      // reset field values
+      this.fields = this.fields.map(field => ({
+        ...field,
+        value: "",
+        valid: false
+      }));
+
+      this.$emit("startOver");
+    },
     validateField(field) {
       field.valid = field.validate(field.value);
     }
