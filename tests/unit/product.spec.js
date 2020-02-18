@@ -9,7 +9,7 @@ const createNewProductWrapper = propsData =>
   shallowMount(Product, { propsData: { ...defaultPropsData, ...propsData } });
 
 describe("Product.vue", () => {
-  it("displays add to cart button, if cart doesn't contain the product.", () => {
+  it("displays add to cart button, if product hasn't been added to cart", () => {
     const wrapper = createNewProductWrapper();
     expect(wrapper.contains(".add-to-cart")).to.be.true;
   });

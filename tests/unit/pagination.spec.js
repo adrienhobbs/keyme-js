@@ -22,7 +22,7 @@ describe("Pagination.vue", () => {
     prevPageBtn = wrapper.find(".previous-page-btn");
   });
 
-  it("displays correct page location", () => {
+  it("displays the correct page location", () => {
     nextPageBtn.trigger("click");
     expect(wrapper.vm.currentPage).to.equal(1);
     prevPageBtn.trigger("click");
@@ -64,6 +64,7 @@ describe("Pagination.vue", () => {
         itemsPerPage: 9
       }
     });
+
     const prevPageBtn = wrapper.find(".previous-page-btn");
 
     expect(prevPageBtn.classes("disabled")).to.be.true;
