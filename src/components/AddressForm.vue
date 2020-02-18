@@ -3,23 +3,23 @@
     <div class="address-form">
       <input
         v-for="(field, i) in fields"
-        v-model="field.value"
         :key="i"
-        :type="field.type"
-        :required="field.required"
-        :placeholder="field.placeholder"
-        @input="() => field.validate(field)"
         class="field"
+        v-model="field.value"
         :class="{
           valid: field.valid,
           [field.className]: true,
           dirty: field.value,
           invalid: !field.valid
         }"
+        :type="field.type"
+        :required="field.required"
+        :placeholder="field.placeholder"
+        @input="validateField(field)"
       />
     </div>
     <div class="form-actions">
-      <div class="button" :class="{ disabled: !formIsValid }">
+      <div class="continue-btn button" :class="{ disabled: !formIsValid }">
         Continue
       </div>
       <div @click="$emit('updateView', 'product-listing')" class="button">
@@ -30,10 +30,7 @@
 </template>
 
 <script>
-const validateEmail = field => {
-  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  field.valid = re.test(String(field.value).toLowerCase());
-};
+import { createValidateMinLengthFn, validateEmail } from "../form-helpers";
 
 export default {
   name: "AddressForm",
@@ -47,9 +44,7 @@ export default {
           required: true,
           value: "",
           valid: false,
-          validate: field => {
-            field.valid = field.value.length > 4;
-          }
+          validate: createValidateMinLengthFn(4)
         },
         {
           className: "street-address",
@@ -58,9 +53,7 @@ export default {
           required: true,
           value: "",
           valid: false,
-          validate: field => {
-            field.valid = field.value.length > 4;
-          }
+          validate: createValidateMinLengthFn(6)
         },
         {
           className: "apartment",
@@ -69,10 +62,7 @@ export default {
           required: false,
           value: "",
           valid: false,
-          validate: field => {
-            field.valid = field.value.length > 0;
-            console.log(field.valid);
-          }
+          validate: createValidateMinLengthFn(0)
         },
         {
           className: "email-address",
@@ -92,6 +82,11 @@ export default {
     },
     formIsValid() {
       return this.requiredFields.every(field => field.valid);
+    }
+  },
+  methods: {
+    validateField(field) {
+      field.valid = field.validate(field.value);
     }
   }
 };
