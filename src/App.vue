@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <transition name="fade">
       <div v-show="currentView === 'product-listing'">
         <div
@@ -49,6 +49,9 @@ export default {
       return this.itemsInCart && this.currentView === "product-listing";
     },
     itemsInCart() {
+      // currently not removing items from the cart
+      // if quantity is changed to 0 - this tests that
+      // there is at least one item in the cart
       return Object.values(this.cart).some(qty => qty > 0);
     }
   },
@@ -74,10 +77,14 @@ $orange: #ff6138;
   max-width: 768px;
   margin: auto;
   margin-top: 60px;
+  border: 1px solid gray;
+}
+
+.container {
   padding-left: 30px;
   padding-right: 30px;
-  border: 1px solid gray;
   padding-top: 10px;
+  padding-bottom: 10px;
   position: relative;
 }
 
@@ -98,7 +105,7 @@ $orange: #ff6138;
   border: 1px solid black;
   background-color: $orange;
   color: white;
-  border-radius: 20px;
+  border-radius: 5px;
   display: inline-flex;
 
   &:hover {
