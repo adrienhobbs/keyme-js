@@ -59,7 +59,11 @@ export default {
     emptyCart() {
       this.cart = {};
     },
+    scrollToTop() {
+      window.scrollTo(null, 0);
+    },
     updateView(view) {
+      this.scrollToTop();
       this.currentView = view;
     },
     updateCart({ id, qty }) {
