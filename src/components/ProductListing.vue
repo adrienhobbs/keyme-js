@@ -14,6 +14,7 @@
       @pageUpdated="page => (currentPage = page)"
       :totalItems="products.length"
       :itemsPerPage="productsPerPage"
+      :currentPage="currentPage"
     />
   </div>
 </template>

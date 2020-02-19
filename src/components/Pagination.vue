@@ -29,20 +29,18 @@ export default {
     itemsPerPage: {
       type: Number,
       required: true
+    },
+    currentPage: {
+      type: Number,
+      required: true
     }
-  },
-  data() {
-    return {
-      currentPage: 0
-    };
   },
   methods: {
     scrollToTop() {
       window.scrollTo(null, 0);
     },
     updatePage(page) {
-      this.currentPage = page;
-      this.$emit("pageUpdated", this.currentPage);
+      this.$emit("pageUpdated", page);
       this.scrollToTop();
     }
   },
