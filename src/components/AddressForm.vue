@@ -105,8 +105,6 @@ export default {
   methods: {
     // just a helper to restart the experience
     // wouldn't be included in production code
-    // Emptying the cart and updating the view
-    // would most likely be needed.
     startOver() {
       this.showModal = false;
 
