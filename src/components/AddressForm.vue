@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="address-form-container">
     <div class="address-form">
       <input
         v-for="(field, i) in fields"
@@ -133,6 +133,11 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 
+  &-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
   @media (min-width: 769px) {
     flex-wrap: wrap;
     flex-direction: row;
@@ -143,7 +148,7 @@ export default {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid black;
-  font-size: 1.5em;
+  font-size: 1.35em;
   flex: auto;
 
   &.valid.dirty {
