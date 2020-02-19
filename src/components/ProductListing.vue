@@ -3,10 +3,10 @@
     <div class="products-container">
       <Product
         v-for="product in productsToDisplay"
-        :qtyInCart="cart[product.id] || 0"
-        @updateCart="({ id, qty }) => $emit('updateCart', { id, qty })"
         :key="product.key"
         :product="product"
+        :qtyInCart="cart[product.id] || 0"
+        @updateCart="({ id, qty }) => $emit('updateCart', { id, qty })"
       />
     </div>
 
@@ -45,6 +45,8 @@ export default {
     };
   },
   computed: {
+    // returns proper number of products according to the
+    // current page number and productsPerPage
     productsToDisplay() {
       const startingIndex = this.currentPage * this.productsPerPage;
       return this.products.slice(
