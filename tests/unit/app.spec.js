@@ -35,6 +35,6 @@ describe("App.vue", () => {
     expect(wrapper.vm.cart["fake-item"]).to.equal(1);
 
     wrapper.vm.updateCart({ id: "fake-item", qty: 0 });
-    expect(wrapper.vm.cart["fake-item"]).to.equal(0);
+    expect(wrapper.vm.cart["fake-item"]).to.be.undefined;
   });
 });
