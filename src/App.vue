@@ -83,6 +83,7 @@ $orange: #ff6138;
   color: #2c3e50;
   max-width: 768px;
   margin: auto;
+  text-align: center;
   margin-top: 60px;
   margin-bottom: 60px;
   border: 1px solid gray;
