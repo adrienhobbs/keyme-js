@@ -61,7 +61,6 @@ export default {
     },
     updateView(view) {
       this.currentView = view;
-      window.scrollTo(null, 0);
     },
     updateCart({ id, qty }) {
       if (qty) {
