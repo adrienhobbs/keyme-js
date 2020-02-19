@@ -28,8 +28,9 @@ On the Address Form Page I've omitted the grayed out form fields in the supplied
   - this will allow for more dynamic creation of forms with a mix of different field types.
 - Wait for images to load on a product listing page before displaying.
 
-## Serving and building the project
+## Serving, testing, and building the project
 
 - `yarn` - install dependencies
 - `yarn serve` - run development server
 - `yarn build` - compile project
+- `yarn test:unit` - run project unit tests
