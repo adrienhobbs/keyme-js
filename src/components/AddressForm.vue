@@ -105,17 +105,22 @@ export default {
     }
   },
   methods: {
+    // just a helper to restart the experience
+    // wouldn't be included in production code
+    // Emptying the cart and updating the view
+    // would most likely be needed.
     startOver() {
       this.showModal = false;
 
-      // reset field values
+      // reset form field values
       this.fields = this.fields.map(field => ({
         ...field,
         value: "",
         valid: false
       }));
 
-      this.$emit("startOver");
+      this.$emit("updateView", "product-listing");
+      this.$emit("emptyCart");
     },
     validateField(field) {
       field.valid = field.validate(field.value);
@@ -145,26 +150,21 @@ export default {
       border-color: red;
     }
 
+    &.apartment {
+      @media (min-width: 769px) {
+        width: 10%;
+        margin-left: 10px;
+      }
+    }
+
+    &.street-address {
+      @media (min-width: 769px) {
+        width: 80%;
+      }
+    }
+
     @media (min-width: 769px) {
       display: inline-flex;
-    }
-  }
-
-  .full-name {
-    @media (min-width: 769px) {
-      width: 100%;
-    }
-  }
-
-  .apartment {
-    @media (min-width: 769px) {
-      width: 10%;
-      margin-left: 10px;
-    }
-  }
-
-  .email-address {
-    @media (min-width: 769px) {
       width: 100%;
     }
   }
