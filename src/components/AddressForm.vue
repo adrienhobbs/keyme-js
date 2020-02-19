@@ -36,10 +36,8 @@
             <h3>{{ field.placeholder }}: {{ field.value }}</h3>
           </div>
         </div>
-        <div class="form-actions">
-          <div @click="startOver()" class="button">
-            Start Over
-          </div>
+        <div @click="startOver()" class="button">
+          Start Over
         </div>
       </div>
     </Modal>
@@ -135,43 +133,43 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 
-  .field {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    font-size: 1.5em;
-    flex: auto;
+  @media (min-width: 769px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+}
 
-    &.valid.dirty {
-      border-color: lightgreen;
-    }
+.field {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  font-size: 1.5em;
+  flex: auto;
 
-    &.invalid.dirty {
-      border-color: red;
-    }
+  &.valid.dirty {
+    border-color: lightgreen;
+  }
 
-    &.apartment {
-      @media (min-width: 769px) {
-        width: 10%;
-        margin-left: 10px;
-      }
-    }
+  &.invalid.dirty {
+    border-color: red;
+  }
 
-    &.street-address {
-      @media (min-width: 769px) {
-        width: 80%;
-      }
-    }
-
+  &.apartment {
     @media (min-width: 769px) {
-      display: inline-flex;
-      width: 100%;
+      width: 10%;
+      margin-left: 10px;
+    }
+  }
+
+  &.street-address {
+    @media (min-width: 769px) {
+      width: 80%;
     }
   }
 
   @media (min-width: 769px) {
-    flex-wrap: wrap;
-    flex-direction: row;
+    display: inline-flex;
+    width: 100%;
   }
 }
 
