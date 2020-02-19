@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <img :src="product.imageURL" alt="" />
+    <img :src="product.imageURL" />
     <div class="product-info">
       <div class="product-name">
         {{ product.display_name }}
