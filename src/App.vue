@@ -7,7 +7,7 @@
           :class="{ 'is-hidden': !showCheckoutBtn }"
           @click="updateView('address-form')"
         >
-          Checkout
+          Proceed To Checkout
         </div>
         <ProductListing
           @updateCart="updateCart"
@@ -17,10 +17,10 @@
         />
       </div>
     </transition>
-    <transition>
+    <transition name="fade">
       <AddressForm
         @updateView="updateView"
-        @startOver="startOver"
+        @emptyCart="emptyCart"
         v-show="currentView === 'address-form'"
       />
     </transition>
@@ -41,31 +41,34 @@ export default {
   data() {
     return {
       products,
-      currentView: "address-form",
+      currentView: "product-listing",
       cart: {}
     };
   },
   computed: {
+    // only show the checkout btn if cart contains at least one item
+    // and user is on the product listing page
     showCheckoutBtn() {
       return this.itemsInCart && this.currentView === "product-listing";
     },
     itemsInCart() {
-      // currently not removing items from the cart
-      // if quantity is changed to 0 - this tests that
-      // there is at least one item in the cart
       return Object.values(this.cart).some(qty => qty > 0);
     }
   },
   methods: {
-    startOver() {
+    emptyCart() {
       this.cart = {};
-      this.updateView("product-listing");
     },
     updateView(view) {
       this.currentView = view;
+      window.scrollTo(null, 0);
     },
     updateCart({ id, qty }) {
-      this.$set(this.cart, id, qty);
+      if (qty) {
+        this.$set(this.cart, id, qty);
+      } else {
+        this.$delete(this.cart, id, qty);
+      }
     }
   }
 };
@@ -73,6 +76,7 @@ export default {
 
 <style lang="scss">
 $orange: #ff6138;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,11 +90,7 @@ $orange: #ff6138;
 }
 
 .container {
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: relative;
+  padding: 10px 30px 10px 30px;
 }
 
 .is-hidden {
@@ -102,16 +102,16 @@ $orange: #ff6138;
   top: 5px;
   right: 0;
   margin-bottom: 10px;
+  border: 1px solid black;
 }
 
 .button {
+  display: inline-flex;
   padding: 5px 15px 5px 15px;
   cursor: pointer;
-  border: 1px solid black;
   background-color: $orange;
   color: white;
   border-radius: 5px;
-  display: inline-flex;
 
   &:hover {
     background-color: lighten($orange, 10%);
@@ -122,10 +122,12 @@ $orange: #ff6138;
     opacity: 0.3;
   }
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
 }
+
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
