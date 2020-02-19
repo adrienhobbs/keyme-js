@@ -22,6 +22,9 @@ describe("App.vue", () => {
             "fake-item": 1
           }
         };
+      },
+      methods: {
+        scrollToTop: () => {}
       }
     });
 
