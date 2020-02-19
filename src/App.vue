@@ -81,12 +81,13 @@ $orange: #ff6138;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   max-width: 768px;
   margin: auto;
   margin-top: 60px;
+  margin-bottom: 60px;
   border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .container {
