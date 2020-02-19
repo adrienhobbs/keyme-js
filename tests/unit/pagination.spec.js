@@ -11,7 +11,8 @@ describe("Pagination.vue", () => {
     wrapper = shallowMount(Pagination, {
       propsData: {
         totalItems: 34,
-        itemsPerPage: 9
+        itemsPerPage: 9,
+        currentPage: 0
       },
       methods: {
         scrollToTop: () => {}
@@ -22,33 +23,24 @@ describe("Pagination.vue", () => {
     prevPageBtn = wrapper.find(".previous-page-btn");
   });
 
-  it("displays the correct page location", () => {
+  it("emits a pageUpdated event with correct page number when the next page button is clicked", () => {
     nextPageBtn.trigger("click");
-    expect(wrapper.vm.currentPage).to.equal(1);
-    prevPageBtn.trigger("click");
-    expect(wrapper.vm.currentPage).to.equal(0);
+    expect(wrapper.emitted().pageUpdated[0][0]).to.equal(1);
   });
 
-  it("emits a pageUpdated event when the next page button is clicked", () => {
-    nextPageBtn.trigger("click");
-    expect(wrapper.emitted()).to.haveOwnProperty("pageUpdated");
-  });
-
-  it("emits a pageUpdated event when the previous page button is clicked", () => {
+  it("emits a pageUpdated event with correct page number when the previous page button is clicked", () => {
+    wrapper.setProps({ currentPage: 1 });
     prevPageBtn.trigger("click");
-    expect(wrapper.emitted()).to.haveOwnProperty("pageUpdated");
+
+    expect(wrapper.emitted().pageUpdated[0][0]).to.equal(0);
   });
 
   it("disables next button on last page", () => {
     const wrapper = shallowMount(Pagination, {
       propsData: {
         totalItems: 34,
-        itemsPerPage: 9
-      },
-      data() {
-        return {
-          currentPage: 3
-        };
+        itemsPerPage: 9,
+        currentPage: 3
       }
     });
     const nextPageBtn = wrapper.find(".next-page-btn");
@@ -57,11 +49,12 @@ describe("Pagination.vue", () => {
     expect(wrapper.vm.isLastPage).to.be.true;
   });
 
-  it("disables previous button on last page", () => {
+  it("disables previous button on first page", () => {
     const wrapper = shallowMount(Pagination, {
       propsData: {
         totalItems: 34,
-        itemsPerPage: 9
+        itemsPerPage: 9,
+        currentPage: 0
       }
     });
 
